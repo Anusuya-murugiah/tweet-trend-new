@@ -17,10 +17,8 @@ pipeline {
             steps {
                 sh 'mvn clean deploy'
             }
-        }
-    }
-         
-         stage("Jar Publish") {
+        }     
+    stage("Jar Publish") {
         steps {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
@@ -41,11 +39,10 @@ pipeline {
                      buildInfo.env.collect()
                      server.publishBuildInfo(buildInfo)
                      echo '<--------------- Jar Publish Ended --------------->'  
-            
             }
         }   
     }   
     
-    
-    
+ }  
+  
 }
