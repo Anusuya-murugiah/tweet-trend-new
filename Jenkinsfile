@@ -18,6 +18,8 @@ pipeline {
         stage('build the code') {
             steps {
                 withEnv(["PATH=/opt/apache-maven-3.9.6/bin:$PATH"]) {
+                    sh 'echo "Running on: $(hostname)"'
+                    sh 'mvn -version'
                     sh 'mvn clean deploy'
                 }
             }
