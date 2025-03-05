@@ -1,5 +1,5 @@
 def registry = 'https://anusuya.jfrog.io'
-def imageName = 'https://anusuya.jfrog.io/valaxy/ttrend'
+def imageName = 'anusuya.jfrog.io/valaxy/ttrend'
 def version = '2.1.2'
 pipeline {
     agent {
