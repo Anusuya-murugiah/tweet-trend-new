@@ -5,9 +5,9 @@ pipeline {
     agent {
         label 'slave' 
     }
-    environment {
+   /* environment {
         PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
-    }
+    }*/
 
     stages {
         stage('code checkout') {
@@ -17,7 +17,9 @@ pipeline {
         }
         stage('build the code') {
             steps {
-                sh 'mvn clean deploy'
+                withEnv(["PATH=/opt/apache-maven-3.9.6/bin:$PATH"]) {
+                    sh 'mvn clean deploy'
+                }
             }
         }     
     stage("Jar Publish") {
