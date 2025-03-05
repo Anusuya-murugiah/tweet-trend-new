@@ -1,4 +1,6 @@
 def registry = 'https://anusuya.jfrog.io'
+def imageName = 'https://anusuya.jfrog.io/valaxy/ttrend'
+def version = '2.1.2'
 pipeline {
     agent {
         label 'slave' 
@@ -22,7 +24,7 @@ pipeline {
         steps {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
-                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"jfrog"
+                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"frog_token"
                      def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                      def uploadSpec = """{
                           "files": [
@@ -42,6 +44,28 @@ pipeline {
             }
         }   
     }   
+    stage ('docker build') {
+        steps {
+            script {
+                  echo '<--------------- Docker Build Started --------------->'
+                  app =docker.build(imageName+":"+version)
+                  echo '<--------------- Docker Build ended  --------------->'
+            }
+        }
+    }
+    stage ('docker publish') {
+        steps {
+            script {
+                 echo '<--------------- Docker Publish Started --------------->'  
+                 docker.withRegistry(registry, 'frog_token'){
+                     app.push()
+                 }
+                echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
+        
+    
     
  }  
   
