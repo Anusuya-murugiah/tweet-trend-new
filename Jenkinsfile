@@ -1,4 +1,6 @@
 def registry = 'https://trialwp5ggf.jfrog.io/'
+def imageName = 'trialwp5ggf.jfrog.io/valaxy-docker/ttrend'
+def version = '2.1.2'
 pipeline {
     agent {
         label 'slave'
@@ -75,8 +77,26 @@ pipeline {
             }
         }   
     }   
-
-
+    stage ('docker build') {
+        steps {
+            script {
+                  echo '<--------------- Docker Build Started --------------->'
+                  app =docker.build(imageName+":"+version)
+                  echo '<--------------- Docker Build ended  --------------->'
+            }
+        }
+    }
+    stage ('docker publish') {
+        steps {
+            script {
+                 echo '<--------------- Docker Publish Started --------------->'  
+                 docker.withRegistry(registry, 'jfrog-cred'){
+                     app.push()
+                 }
+                echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
       
       
   } 
