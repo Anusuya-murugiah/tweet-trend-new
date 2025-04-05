@@ -97,10 +97,12 @@ pipeline {
             }
         }
     }
-    stage('Deploy') {
+    stage ('deploy') {
         steps {
-            script{
-                sh './deploy.sh'
+            script {
+               echo '<--------------- helm install Started --------------->' 
+                sh 'helm install ttrend ttrend-0.1.0.tgz'
+                 echo '<--------------- helm install ended --------------->' 
             }
         }
     }
