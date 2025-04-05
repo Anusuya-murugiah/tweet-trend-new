@@ -14,10 +14,10 @@ spec:
         app:  valaxy-rtp
     spec:
       imagePullSecrets:
-      - name: jfrogcred
+      - name: cred
       containers:
       - name:  valaxy-rtp
-        image: anusuya.jfrog.io/valaxy/ttrend:2.1.2
+        image: trialwp5ggf.jfrog.io/valaxy-docker/ttrend:2.1.2
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
