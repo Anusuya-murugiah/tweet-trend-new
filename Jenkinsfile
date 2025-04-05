@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'slave' 
+        label 'slave'
     }
    /* environment {
         PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
