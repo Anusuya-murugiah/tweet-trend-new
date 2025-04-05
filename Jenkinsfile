@@ -19,9 +19,14 @@ pipeline {
             steps {
                     sh 'echo "Running on: $(hostname)"'
                     sh 'mvn -version'
-                    sh 'mvn clean deploy'
+                    sh 'mvn clean deploy -Dmaven.test.skip=true'
             }
         }
+      stage ('test'){
+          steps  {
+              sh 'mvn surefire-report:report'
+          }
+      }
       stage('SonarQube analysis') {
       environment {
           scannerHome = tool 'sonarqube-scanner' 
