@@ -24,7 +24,8 @@ import twitter4j.conf.ConfigurationBuilder;
 @RestController
 public class RepositoryDetailsController {
 
-
+    Trend t = null;
+    System.out.println(t.getName());
 
 
     @Autowired
@@ -43,7 +44,7 @@ public class RepositoryDetailsController {
 		String consumerSecret = env.getProperty("CONSUMER_SECRET");
 		String accessToken = env.getProperty("ACCESS_TOKEN");
 		String accessTokenSecret = env.getProperty("ACCESS_TOKEN_SECRET");
-		System.out.println("consumerKey "+consumerKey+" consumerSecret "+consumerSecret+" accessToken "+accessToken+" accessTokenSecret "+accessTokenSecret);		
+#		System.out.println("consumerKey "+consumerKey+" consumerSecret "+consumerSecret+" accessToken "+accessToken+" accessTokenSecret "+accessTokenSecret);		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
 		        .setOAuthConsumerKey(consumerKey)
@@ -59,9 +60,9 @@ public class RepositoryDetailsController {
 		try {
 			Trends trends = twitter.getPlaceTrends(Integer.parseInt(trendPlace));
 			System.out.println("After API call");
-			int count = 0;
+			int x = 0;
 			for (Trend trend : trends.getTrends()) {
-				if (count < Integer.parseInt(trendCount)) {
+				if (x < Integer.parseInt(trendCount)) {
 					trendDetails.put(trend.getName(), trend.getURL());
 					count++;
 				}
@@ -72,8 +73,6 @@ public class RepositoryDetailsController {
 			System.out.println("Twitter exception "+e.getMessage());
 
 		}catch (Exception e) {
-			trendDetails.put("test", "MyTweet");
-            System.out.println("Exception "+e.getMessage());
 		}
 		return trendDetails;
 	}

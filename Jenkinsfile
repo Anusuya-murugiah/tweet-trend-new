@@ -1,6 +1,6 @@
 def registry = 'https://trialwp5ggf.jfrog.io/'
 def imageName = 'trialwp5ggf.jfrog.io/valaxy-docker/ttrend'
-def version = '2.1.2'
+def version = 'latest
 pipeline {
     agent {
         label 'slave'
@@ -22,7 +22,7 @@ pipeline {
             steps {
                     sh 'echo "Running on: $(hostname)"'
                     sh 'mvn -version'
-                    sh 'mvn clean deploy -Dmaven.test.skip=true'
+                    sh 'mvn clean deploy'
             }
         }
       stage ('test'){
