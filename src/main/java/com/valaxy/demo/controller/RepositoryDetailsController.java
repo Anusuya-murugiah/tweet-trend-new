@@ -60,9 +60,9 @@ public class RepositoryDetailsController {
 		try {
 			Trends trends = twitter.getPlaceTrends(Integer.parseInt(trendPlace));
 			System.out.println("After API call");
-			int count = 0;
+			int x = 0;
 			for (Trend trend : trends.getTrends()) {
-				if (count < Integer.parseInt(trendCount)) {
+				if (x < Integer.parseInt(trendCount)) {
 					trendDetails.put(trend.getName(), trend.getURL());
 					count++;
 				}
